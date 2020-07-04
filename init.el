@@ -1,0 +1,1 @@
+/Users/nano/Emacs-config/init.el

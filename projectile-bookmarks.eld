@@ -1,0 +1,1 @@
+("~/.emacs.d/elpa/persist-0.4/")

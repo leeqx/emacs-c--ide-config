@@ -1,0 +1,18 @@
+%h -x
+%h c++-header
+;;Example A
+clang
+%c -std=c11
+%cpp -std=c++2a
+%h %hpp --include=Global.h
+-Iinc
+-DMACRO
+
+;examples B
+;;%compile_commands.json
+;;%c -std=c11
+;;%cpp -std=c++14
+;;%c %cpp -pthread
+;;%h %hpp --include=Global.h
+;;-Iinc
+

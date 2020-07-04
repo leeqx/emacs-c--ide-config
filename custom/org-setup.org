@@ -1,0 +1,284 @@
+#+OPTIONS: reveal_title_slide:"<h2>%t</h2><h3>%a</h3>"
+#+OPTIONS: toc:nil num:nil todo:nil pri:nil tags:nil ^:nil
+#+CATEGORY: 
+#+TAGS: 
+#+REVEAL_ROOT: http://cdn.jsdelivr.net/npm/reveal.js@3.6.0/
+#+REVEAL_THEME: moon
+#+REVEAL_MATHJAX_URL: https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML
+#+TITLE: Emacs Org-Mode Introduction
+#+AUTHOR: Onion Studio
+#+DATE: 2018-10-03
+#+LATEX_COMPILER: xelatex
+#+TODO: TODO(t) WAITING(w) VERIFY(v) | DONE(d) CANCELLED(c)
+* 基本語法
+  + Outlines
+  + *bold* /italic/ =verbatim=, +strikethrough+
+  + bullets
+    + list
+    + items
+  + link [[https://www.onionstudio.com.tw][My blog]]
+ 
+* Table
+  | name  | email           | address |
+  |-------+-----------------+---------|
+  | Jerry | jerry@gmail.com | xx      |
+  | Tim   | tim@gmail.com   | yyy     |
+* Literate Programming
+  #+BEGIN_SRC emacs-lisp
+  (use-package org
+  :ensure t
+  :mode (("\\.org\\'" . org-mode)
+         ("\\.txt\\'" . org-mode))
+  :config
+  (global-set-key (kbd "\C-c l")  'org-store-link)
+  (global-set-key (kbd "\C-c a")  'org-agenda)
+  (global-set-key (kbd "\C-c c")  'org-capture)
+  (setq org-hide-leading-stars t)
+  (setq org-src-fontify-natively t)
+  (setq org-log-done 'time)
+  (use-package org-download
+  :ensure t
+  )
+  (use-package org-bullets
+  :ensure t
+  :hook (org-mode . org-bullets-mode)
+  )
+  (org-babel-do-load-languages 'org-babel-load-languages 
+  '((shell . t)
+    (python . t)
+    (ruby . t)
+    (sqlite . t)
+    (C . t)
+    (js . t)
+    (emacs-lisp . t)
+    (lisp . t)
+    (latex . t)
+    (java . t)
+  ))
+  )
+  #+END_SRC
+* Todo
+** VERIFY 介紹 Todo
+** DONE 循環不同的狀態
+   CLOSED: [2018-10-03 三 12:29]
+* Org Capture
+  #+BEGIN_SRC emacs-lisp
+  (setq default-notes-file (concat org-directory "/notes.org"))
+  (setq org-agenda-files (list "~/org/gtd.org"
+                               "~/org/blog.org"
+                               "~/org/gcal.org"
+                               "~/org/journal.org"))
+  (setq org-capture-templates 
+  '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Task") "* TODO %?\n %i \n %a")
+  ("j" "Journal" entry (file+olp+datetree "~/org/journal.org") "* %?\nEntered on %U\n %i\n %a")
+  ("b" "Blog" entry (file+headline "~/org/blog.org" "Blog") "* %?\n%T")
+  ("a" "Appointment" entry (file "~/org/gcal.org") "* %?\n\n%^T\n\n:PROPERTIES:\n\n:END:\n\n")
+  ))
+  #+END_SRC
+* Source code
+  #+BEGIN_SRC js
+  var sum = function sum(num1, num2) {
+  
+     return (num1 + num2)
+  }
+
+  console.log(sum(2, 3))
+  #+END_SRC
+
+  #+RESULTS:
+  : 5
+  : undefined
+
+* Export to other format (C-c C-e), for html need ~htmlize~
+  #+BEGIN_SRC emacs-lisp
+  (use-package htmlize
+  :ensure t
+  )
+  #+END_SRC
+* Org Reveal 簡報
+  + 需要最新的 org-mode，需加入 org 套件資料庫，然後安裝最新版的 org-mode
+    #+BEGIN_EXAMPLE
+    (add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
+    #+END_EXAMPLE
+  + 安裝 org-reveal
+    #+BEGIN_SRC emacs-lisp
+    (use-package ox-reveal
+    :ensure t
+    )
+    #+END_SRC
+* Org youtube link
+  + add embeded youtube
+    #+BEGIN_SRC emacs-lisp
+    ;;
+    ;; org youtube embeded
+    ;;
+    (defvar yt-iframe-format
+    ;;You may want to change your width and height.
+    (concat "<iframe width=\"440\""
+          " height=\"335\""
+          " src=\"https://www.youtube.com/embed/%s\""
+          " frameborder=\"0\""
+          " allowfullscreen>%s</iframe>"))
+    (org-add-link-type
+    "yt"
+    (lambda (handle)
+      (browse-url
+        (concat "https://www.youtube.com/embed/" handle)))
+    (lambda (path desc backend)
+      (cl-case backend
+        (html (format yt-iframe-format path (or desc "")))
+        (latex (format "\href{%s}{%s}" path (or desc "video"))))))
+    #+END_SRC
+* org2blog 直接寫部落格
+  + 因 xml-rpc 不相容於 unicode, 需置換 [[https://github.com/org2blog/org2blog#unicode-character-support][unicode support]]
+  + emacs-lisp 的 syntax highlight 參考 https://vxlabs.com/tag/syntaxhighlighter/
+    + 加入 [[https://github.com/starforgelabs/SyntaxHighlighter-Evolved-LISP-Brush/blob/master/shBrushLisp.js][shBrushLips.js]] 到 ~wp-content/plugins/syntaxhighlighter~
+    + 修改 ~syntaxhighlighter.php~ 插入
+      #+BEGIN_EXAMPLE
+      // ...
+      wp_register_script('syntaxhighlighter-brush-lisp', plugins_url('shBrushLisp.js',__FILE__),array('syntaxhighlighter-core'),'1.0.0');
+      // ...
+      $this->brushes = (array) apply_filters( 'syntaxhighlighter_brushes', array(
+      'as3' => 'as3',
+      <bunch of other aliases>,
+      'lisp' => 'lisp',
+      'emacs-lisp' => 'lisp',
+      #+END_EXAMPLE
+  + 設定
+    #+BEGIN_SRC emacs-lisp
+    (use-package org2blog
+    :ensure t
+    :requires org
+    :init
+    (setq org2blog/wp-blog-alist
+           '(("wordpress"
+           :url "https://jerryhsieh01.wordpress.com/xmlrpc.php"
+           :username "jerryhsieh01"
+           )
+          ("my-blog"
+           :url "https://blog.onionstudio.com.tw/xmlrpc.php"
+           :username "Jerry"
+           )))
+     :config
+     (setq org2blog/wp-use-sourcecode-shortcode t)
+     (setq org2blog/wp-sourcecode-langs 
+          '("sh" "cpp" "css" "js" "javascript" "perl" "php" "python" "ruby" "emacs-lisp" "lisp" "go" "lua"))
+     )
+    #+END_SRC
+
+* Latex 整合
+  - characters: \alpha \rightarrow \beta
+  - $O(n \log n)$
+* Latex 中文支援
+  + 安裝 texlive
+    #+BEGIN_SRC shell
+    wget http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz                              
+    tar zxvf install-tl-unx.tar.gz  
+    ./install-tl*/install-tl --profile=/tmp/texlive.profile -repository=http://mirrors.ibiblio.org/pub/m\
+irrors/CTAN/systems/texlive/tlnet/
+    #+END_SRC
+  + ~texlive.profile~ 
+
+    #+BEGIN_EXAMPLE
+    selected_scheme scheme-small
+    TEXDIR /usr/local/texlive/2018basic
+    TEXMFCONFIG ~/.texlive/2018basic/texmf-config
+    TEXMFHOME ~/texmf
+    TEXMFLOCAL /usr/local/texlive/2018basic/texmf-local
+    TEXMFSYSCONFIG /usr/local/texlive/2018basic/texmf-config
+    TEXMFSYSVAR /usr/local/texlive/2018basic/texmf-var
+    TEXMFVAR ~/.texlive/2018basic/texmf-var
+    binary_x86_64-linux 1
+    collection-basic 1
+    collection-langchinese 1
+    collection-latex 1
+    collection-latexextra 1
+    collection-latexrecommended 1
+    collection-xetex 1
+    option_adjustrepo 1
+    option_autobackup 0
+    option_backupdir tlpkg/backups
+    option_desktop_integration 0
+    option_doc 0
+    option_file_assocs 0
+    option_fmt 1
+    option_letter 0
+    option_path 0
+    option_post_code 1
+    option_src 0
+    option_sys_bin /usr/local/bin
+    option_sys_info /usr/local/share/info
+    option_sys_man /usr/local/share/man
+    option_w32_multi_user 0
+    option_write18_restricted 1
+    portable 0
+    #+END_EXAMPLE
+  + 安裝 ~evince~ 在 CentOS 7 下開啟 pdf 檔案
+  + 指定程式來開啟檔案
+    #+BEGIN_SRC emacs-lisp
+    (cond ((eq system-type 'gnu/linux) 
+           (setq org-file-apps '((auto-mode . emacs)
+                          ("\\.pdf\\'" . "evince %s")
+                          ("\\.html\\'" . "chrome %s")
+                          )))
+           ((eq system-type 'darwin)
+           (setq org-file-apps '((auto-mode .emacs)
+                          ("\\.pdf\\'" . "open %s")
+                          ("\\.html\\'" . "open %s")))))
+    
+    #+END_SRC
+  + 加入 latex 表頭
+    #+BEGIN_SRC emacs-lisp
+     (defvar use-font (cond 
+     ((eq system-type 'gnu/linux) "{Noto Sans TC Regular}")
+      ((eq system-type 'darwin) "{PingFang TC}")))
+
+    (setq org-latex-classes (list (list "article" (format "
+         \\documentclass[12pt,a4paper]{article}
+         \\usepackage{xeCJK}
+         \\setCJKmainfont%s
+         \\setCJKsansfont%s
+         \\setCJKmonofont%s
+         " use-font use-font use-font))))
+    #+END_SRC
+
+* sync with Google calendar
+  #+BEGIN_SRC emacs-lisp
+  (use-package auth-source
+  :ensure t
+  )
+  (use-package org-gcal
+  :ensure t
+  :config
+  (let (credentials)
+    (add-to-list 'auth-sources "~/.netrc")
+    (setq credentials (auth-source-user-and-password "org-gcal"))
+    (setq org-gcal-client-id (car credentials)
+        org-gcal-client-secret (cadr credentials)
+        org-gcal-file-alist '(("jerryhsieh01@gmail.com" . "~/org/gcal.org"))
+  ))
+  (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-sync) ))
+;;  (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-sync) ))
+  )
+  #+END_SRC
+  + you need to add ~.netrc~ file
+    #+BEGIN_EXAMPLE
+    machine org-gcal client-id xxxx secret yyyy
+    #+END_EXAMPLE
+* Org Reveal
+  + 做簡報
+    #+BEGIN_SRC emacs-lisp
+    (use-package ox-reveal
+    :ensure t
+    )
+    #+END_SRC
+* Org export to markdown (github version)
+  #+BEGIN_SRC emacs-lisp
+  (use-package ox-gfm
+  :ensure t
+  )
+  #+END_SRC
+
+
+
+
