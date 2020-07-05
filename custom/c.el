@@ -48,19 +48,19 @@
 ;; install gcc-4.9, cmake 3.1 and download rtags from github and make it
 ;;
 
-(use-package rtags
-  :ensure t
-  :config
-  (rtags-enable-standard-keybindings)
-  (setq rtags-autostart-diagnostics t)
-  (rtags-diagnostics)
-  (setq rtags-completions-enabled t)
-  (define-key c-mode-base-map (kbd "M-.")
-    (function rtags-find-symbol-at-point))
-  (define-key c-mode-base-map (kbd "M-,")
-    (function rtags-find-references-at-point))
-  )
-
+;(use-package rtags
+;  :ensure t
+;  :config
+;  (rtags-enable-standard-keybindings)
+;  (setq rtags-autostart-diagnostics t)
+;  (rtags-diagnostics)
+;  (setq rtags-completions-enabled t)
+;  (define-key c-mode-base-map (kbd "M-.")
+;    (function rtags-find-symbol-at-point))
+;  (define-key c-mode-base-map (kbd "M-,")
+;    (function rtags-find-references-at-point))
+;  )
+;
 ;;
 ;; cmake-ide enable rdm(rtags) auto start and rc(rtags) to watch directory
 ;;

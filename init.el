@@ -9,14 +9,28 @@
 
 ;(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 ;(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/"))
+(setq package-archives '(("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (setq package-archives '(
-                                 ("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-                                 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
-                                 ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
-                                 ))
+                         ("gnu"   . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+                         ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+                         ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/")
+                         ))
 
 
 (package-initialize)
+
+;; 查看大型项目采用tags
+;; 比如linux、glibc使用时先用make TAGS 生成tags文件，然后再使用emacs查看代码
+;(setq tags-file-name "path/TAGS"); 这里的path/TAGS要换成自己的对应的tags文件路径
+; 如果有多个tags文件，采用如下方式，少使用的尽量放在后面
+;(setq tags-table-list '("path1/TAGS" "path2/TAGS" "path3/TAGS"))
+;或者再emacs运行M-x visit-tags-table，再输入TAGS文件的位置即可加载。
+; 采用tag 浏览代码的快捷键
+;M-. 查找光标所指向的函数的定义
+;C-M-. 输入函数名，查找其定义
+;M-*   回退
+;C-u M-. 查找标签的下一个定义
 
 (load-theme 'manoj-dark t)
 ;;
@@ -350,10 +364,9 @@
 (provide 'init)
 
 
-;;
+;;使用的时agtags
 ;;M-. 查找光标所指向的函数的定义
 ;;C-M-. 输入函数名，查找其定义
 ;;M-*   回退
 ;;C-u M-. 查找标签的下一个定义
 ;;; init.el ends here
-
