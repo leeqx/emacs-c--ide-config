@@ -363,6 +363,47 @@
 (setq default-tab-width 4) 
 (provide 'init)
 
+(global-set-key [f8] 'neotree-toggle)
+(add-hook 'after-init-hook #'global-company-mode)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(use-package clang-format
+:ensure t
+:config
+(setq clang-format-style-option "google")
+(add-hook 'c-mode-hook (lambda() (add-hook 'before-save-hook 'clang-format-buffer)))
+(add-hook 'c++-mode-hook (lambda() (add-hook 'before-save-hook 'clang-format-buffer)))
+
+
+
+;;使用的时agtags
+;;M-. 查找光标所指向的函数的定义
+;;C-M-. 输入函数名，查找其定义
+;;M-*   回退
+;;C-u M-. 查找标签的下一个定义
+
+(global-set-key [f7] 'projectile-find-file)
+(global-set-key [f6] 'find-name-dired)
+(global-set-key [f5] 'compile)
+(global-set-key [f4] 'lsp-mode)
+(global-set-key (kbd "C-q") 'evil-normal-state)
+
+(when (fboundp 'winner-mode)
+      (winner-mode 1)) ;; C-left   C-right
+
+(windmove-default-keybindings) ; 通过：shift+方向键切换窗口
+(global-set-key (kbd "<f5>") 'smart-compile)
+
+(defun smart-compile()
+  "f5 执行blade build"
+  (interactive)
+  (setq command "blade build")
+  (compile command)
+)
+
+;;set windows numbering
+;; 通过M-数字跳转自定窗口
+(require 'window-numbering)
+(window-numbering-mode 1)
 
 ;;使用的时agtags
 ;;M-. 查找光标所指向的函数的定义
