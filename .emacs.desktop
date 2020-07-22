@@ -1,0 +1,127 @@
+;; -*- mode: emacs-lisp; coding: emacs-mule; -*-
+;; --------------------------------------------------------------------------
+;; Desktop File for Emacs
+;; --------------------------------------------------------------------------
+;; Created Thu Jul 23 00:08:32 2020
+;; Desktop file format version 208
+;; Emacs version 26.3
+
+;; Global section:
+(setq desktop-saved-frameset [frameset 1 (24344 25728 385833 0) (desktop . "208") "nano@nanodeMacBook-Pro.local" nil nil ((((minibuffer . t) (tty-type . "xterm-256color") (tty . "/dev/tty") (display-type . color) (background-mode . dark) (foreground-color . "WhiteSmoke") (background-color . "black") (menu-bar-lines . 0) (font . "tty") (height . 78) (width . 283) (modeline . t) (unsplittable) (frameset--id . "E1AE-F73D-EE72-C785") (frameset--mini t)) ((min-height . 4) (min-width . 46) (min-height-ignore . 2) (min-width-ignore . 13) (min-height-safe . 1) (min-width-safe . 6) (min-pixel-height . 4) (min-pixel-width . 46) (min-pixel-height-ignore . 2) (min-pixel-width-ignore . 13) (min-pixel-height-safe . 1) (min-pixel-width-safe . 6)) hc (pixel-width . 283) (pixel-height . 77) (total-width . 283) (total-height . 77) (normal-height . 1.0) (normal-width . 1.0) (combination-limit) (leaf (pixel-width . 26) (pixel-height . 77) (total-width . 26) (total-height . 77) (normal-height . 1.0) (normal-width . 0.09363957597173145) (parameters (window-side . left) (window-slot . 0)) (buffer " *NeoTree*" (selected) (hscroll . 0) (fringes 0 0 nil) (margins nil) (scroll-bars nil 0 t nil 0 nil) (vscroll . 0) (dedicated . t) (point . 65) (start . 1))) (hc (last . t) (pixel-width . 257) (pixel-height . 77) (total-width . 257) (total-height . 77) (normal-height . 1.0) (normal-width . 0.9063604240282686) (combination-limit . t) (leaf (pixel-width . 129) (pixel-height . 77) (total-width . 129) (total-height . 77) (normal-height . 1.0) (normal-width . 0.5) (buffer "dev.c" (selected) (hscroll . 0) (fringes 0 0 nil) (margins 4) (scroll-bars nil 0 t nil 0 nil) (vscroll . 0) (dedicated) (point . 53344) (start . 52105))) (leaf (last . t) (pixel-width . 128) (pixel-height . 77) (total-width . 128) (total-height . 77) (normal-height . 1.0) (normal-width . 0.5) (buffer "netpoll.c" (selected . t) (hscroll . 0) (fringes 0 0 nil) (margins 3) (scroll-bars nil 0 t nil 0 nil) (vscroll . 0) (dedicated) (point . 11329) (start . 11257))))))])
+(setq desktop-missing-file-warning nil)
+(setq tags-file-name "/Users/nano/projects/linux/tags")
+(setq tags-table-list '("/Users/nano/projects/linux/tags"))
+(setq search-ring nil)
+(setq regexp-search-ring '("softnet_dat" "__n" "__netif"))
+(setq register-alist '((48 . " netpoll_receive_skb")))
+(setq file-name-history '("/Users/nano/projects/linux/net/" "/Users/nano/projects/linux/" "/Users/nano/.emacs.d/" "/Users/nano/projects/linux/tags" "/Users/nano/projects/linux/drivers/netdevice.h"))
+
+;; Buffer section -- buffers listed in same order as in buffer list:
+(desktop-create-buffer 208
+  "/Users/nano/projects/linux/net/core/netpoll.c"
+  "netpoll.c"
+  'c-mode
+  '(abbrev-mode eldoc-mode override-global-mode ivy-mode yas-minor-mode company-mode flycheck-mode undo-tree-mode linum-mode hs-minor-mode irony-mode)
+  11329
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time 24344 25719 645440 0) (buffer-file-coding-system . utf-8-unix) (overwrite-mode))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/Users/nano/projects/linux/net/core/dev.c"
+  "dev.c"
+  'c-mode
+  '(abbrev-mode eldoc-mode override-global-mode ivy-mode yas-minor-mode company-mode flycheck-mode undo-tree-mode linum-mode hs-minor-mode irony-mode 2C-mode)
+  53344
+  '(53344 nil)
+  nil
+  nil
+  '((buffer-display-time 24344 25719 645440 0) (buffer-file-coding-system . utf-8-unix) (overwrite-mode) (fill-column . 36))
+  '((mark-ring (52992 98069 98067 52992 55302 55302 55020 55020 57297 57297 57339 57339 57281 110065 109412 57313))))
+
+(desktop-create-buffer 208
+  "/Users/nano/projects/linux/include/linux/skbuff.h"
+  "skbuff.h"
+  'c-mode
+  '(abbrev-mode eldoc-mode override-global-mode ivy-mode yas-minor-mode company-mode flycheck-mode undo-tree-mode linum-mode hs-minor-mode irony-mode)
+  29248
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time 24344 25601 912145 0) (buffer-file-coding-system . undecided-unix) (overwrite-mode))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/Users/nano/projects/linux/include/linux/netpoll.h"
+  "netpoll.h"
+  'c-mode
+  '(abbrev-mode eldoc-mode override-global-mode ivy-mode yas-minor-mode company-mode flycheck-mode undo-tree-mode linum-mode hs-minor-mode irony-mode)
+  1631
+  '(1608 nil)
+  nil
+  nil
+  '((buffer-display-time 24344 25532 797137 0) (buffer-file-coding-system . undecided-unix) (overwrite-mode))
+  '((mark-ring (1608 1299 1736 1606 1606 1835))))
+
+(desktop-create-buffer 208
+  "/Users/nano/projects/linux/drivers/net/e1000/e1000_main.c"
+  "e1000_main.c"
+  'c-mode
+  '(abbrev-mode eldoc-mode override-global-mode ivy-mode yas-minor-mode company-mode flycheck-mode undo-tree-mode linum-mode hs-minor-mode irony-mode)
+  115288
+  '(116791 nil)
+  nil
+  nil
+  '((buffer-display-time 24344 24577 324941 0) (buffer-file-coding-system . utf-8-unix) (overwrite-mode))
+  '((mark-ring (116791 115288 115288 112794 112794 1 1))))
+
+(desktop-create-buffer 208
+  "/Users/nano/projects/linux/include/linux/netdevice.h"
+  "netdevice.h"
+  'c-mode
+  '(abbrev-mode eldoc-mode override-global-mode ivy-mode yas-minor-mode company-mode flycheck-mode undo-tree-mode linum-mode hs-minor-mode irony-mode)
+  38714
+  '(38722 nil)
+  nil
+  nil
+  '((buffer-display-time 24344 24570 213267 0) (buffer-file-coding-system . undecided-unix) (overwrite-mode))
+  '((mark-ring (38722))))
+
+(desktop-create-buffer 208
+  "/Users/nano/projects/linux/include/linux/irqflags.h"
+  "irqflags.h"
+  'c-mode
+  '(abbrev-mode eldoc-mode override-global-mode ivy-mode yas-minor-mode company-mode flycheck-mode undo-tree-mode linum-mode hs-minor-mode irony-mode)
+  1962
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time 24344 24140 344196 0) (buffer-file-coding-system . undecided-unix) (overwrite-mode))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/Users/nano/projects/linux/include/asm-generic/bug.h"
+  "bug.h"
+  'c-mode
+  '(abbrev-mode eldoc-mode override-global-mode ivy-mode yas-minor-mode company-mode flycheck-mode undo-tree-mode linum-mode hs-minor-mode irony-mode)
+  1314
+  '(nil nil)
+  nil
+  nil
+  '((buffer-display-time 24344 23969 820022 0) (buffer-file-coding-system . undecided-unix) (overwrite-mode))
+  '((mark-ring nil)))
+
+(desktop-create-buffer 208
+  "/Users/nano/projects/linux/drivers/net/e1000/e1000_ethtool.c"
+  "e1000_ethtool.c"
+  'c-mode
+  '(abbrev-mode eldoc-mode override-global-mode ivy-mode yas-minor-mode company-mode flycheck-mode undo-tree-mode linum-mode hs-minor-mode irony-mode)
+  7524
+  '(7474 nil)
+  nil
+  nil
+  '((buffer-display-time 24344 23122 734346 981000) (buffer-file-coding-system . undecided-unix) (overwrite-mode))
+  '((mark-ring (1 1))))
+

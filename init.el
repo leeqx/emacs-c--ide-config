@@ -325,7 +325,6 @@
 ;C-c C-c：Change the root directory.
 ;C-c C-p：Copy a file or a directory.
 (require 'neotree)
-(global-set-key [f8] 'neotree-toggle)
 
 ;ccls
 ;用以下C/C++ mode hook在项目根目录有compile_commands.json时自动启用`lsp-cquery-enable
@@ -361,7 +360,6 @@
 
 ;;设置TAB宽度为4
 (setq default-tab-width 4) 
-(provide 'init)
 
 (global-set-key [f8] 'neotree-toggle)
 (add-hook 'after-init-hook #'global-company-mode)
@@ -373,20 +371,6 @@
 (add-hook 'c-mode-hook (lambda() (add-hook 'before-save-hook 'clang-format-buffer)))
 (add-hook 'c++-mode-hook (lambda() (add-hook 'before-save-hook 'clang-format-buffer)))
 
-
-
-;;使用的时agtags
-;;M-. 查找光标所指向的函数的定义
-;;C-M-. 输入函数名，查找其定义
-;;M-*   回退
-;;C-u M-. 查找标签的下一个定义
-
-(global-set-key [f7] 'projectile-find-file)
-(global-set-key [f6] 'find-name-dired)
-(global-set-key [f5] 'compile)
-(global-set-key [f4] 'lsp-mode)
-(global-set-key (kbd "C-q") 'evil-normal-state)
-
 (when (fboundp 'winner-mode)
       (winner-mode 1)) ;; C-left   C-right
 
@@ -394,9 +378,9 @@
 (global-set-key (kbd "<f5>") 'smart-compile)
 
 (defun smart-compile()
-  "f5 执行blade build"
+  "f5 执行cargo build"
   (interactive)
-  (setq command "blade build")
+  (setq command "cargo build")
   (compile command)
 )
 
@@ -405,9 +389,37 @@
 (require 'window-numbering)
 (window-numbering-mode 1)
 
+;; 用于保持当前状态，下次打开时可以恢复
+(require 'session) 
+(add-hook 'after-init-hook 'session-initialize) 
+(load "desktop") 
+(desktop-load-default) 
+(desktop-read)
+
+(with-eval-after-load 'lsp-mode
+  (setq lsp-rust-rls-command '("rustup" "run" "nightly" "rls"))
+  (require 'lsp-rust))
+
+(add-hook 'rust-mode-hook #'lsp-rust-enable)
+(add-hook 'rust-mode-hook #'flycheck-mode)
+
+
 ;;使用的时agtags
 ;;M-. 查找光标所指向的函数的定义
 ;;C-M-. 输入函数名，查找其定义
 ;;M-*   回退
 ;;C-u M-. 查找标签的下一个定义
-;;; init.el ends here
+
+(global-set-key [f10] 'desktop-save-in-desktop-dir)
+(global-set-key [f9] 'desktop-read)
+(global-set-key [f8] 'neotree-toggle)
+(global-set-key [f7] 'ffip-lisp-find-file-in-project)
+(global-set-key [f6] 'find-name-dired)
+;;(global-set-key [f5] 'compile)
+(global-set-key [f4] 'lsp-mode)
+(global-set-key [f2] 'ag)
+(global-set-key (kbd "C-q") 'evil-normal-state)
+
+
+(provide 'init)
+
